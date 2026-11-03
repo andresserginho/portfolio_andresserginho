@@ -110,10 +110,11 @@ export const EDUCATION_DATA: EducationItem[] = [
 ];
 
 export const CERTIFICATIONS_DATA: CertificationItem[] = [
-  { id: "1", title: "Desarrollador de Habilidades Interpersonales", issuer: "SENA", date: "2024", color: "#00ff66" },
-  { id: "2", title: "Prevención en Salud Mental", issuer: "SENA", date: "2025", color: "#00f0ff" },
-  { id: "3", title: "Curso Especial en Excel Intermedio", issuer: "SENA", date: "2026", color: "#ffb700" },
-  { id: "4", title: "AutoCAD 2D (Diseño Asistido)", issuer: "SENA", date: "2023", color: "#a855f7" },
-  { id: "5", title: "HPGG02: A Complete Guide to Game Design", issuer: "HP", date: "2026", color: "#38bdf8" },
-  { id: "6", title: "From Code to Creation: Mastering Game Programming", issuer: "En Curso (Finalización Próxima)", date: "2026", color: "#ec4899" },
+  { id: "1", title: "Curso de Ingeniería de Prompts & IA", issuer: "Coursera", date: "2024", color: "#00ff66" },
+  { id: "2", title: "Desarrollador de Habilidades Interpersonales", issuer: "Coursera", date: "2024", color: "#a855f7" },
+  { id: "3", title: "Prevención en Salud Mental", issuer: "SENA", date: "2025", color: "#00f0ff" },
+  { id: "4", title: "Curso Especial en Excel Intermedio", issuer: "SENA", date: "2026", color: "#ffb700" },
+  { id: "5", title: "AutoCAD 2D (Diseño Asistido)", issuer: "SENA", date: "2026", color: "#38bdf8" },
+  { id: "6", title: "HPGG02: A Complete Guide to Game Design", issuer: "HP GAMING GARAGE", date: "2026", color: "#ec4899" },
+  { id: "7", title: "From Code to Creation: Mastering Game Programming", issuer: "HP GAMING GARAGE", date: "2026", color: "#00ff66" },
 ];
