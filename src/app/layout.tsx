@@ -6,6 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-andresserginho.vercel.app"),
   title: "Andrés Serginho | Portafolio Metaverso & Full Stack Developer",
   description:
     "Explora el metaverso interactivo de Andrés Serginho. Tecnólogo ADSO SENA especializado en Turismo Santander, Saven-Sa, Supermercado Sena Tycoon y Meta Login.",
@@ -22,12 +23,28 @@ export const metadata: Metadata = {
     "React Three Fiber 3D",
   ],
   authors: [{ name: "Andrés Serginho", url: "https://github.com/andresserginho" }],
+  
+  // ¡AQUÍ ESTÁ EL ARREGLO! Se usa "/favicon.png" y NO "/public/favicon.png"
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
+
   openGraph: {
     title: "Andrés Serginho | Portafolio Metaverso 3D",
     description:
       "Plataforma interactiva e inmersiva que conecta mis proyectos Full Stack y entornos virtuales.",
     url: "https://portfolio-andresserginho.vercel.app",
     siteName: "Andrés Serginho Meta-Portfolio",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 1200,
+        alt: "Logo Arcade Neón Andrés Serginho",
+      },
+    ],
     locale: "es_CO",
     type: "website",
   },
@@ -44,7 +61,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${inter.className} bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-black`}>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
+      <body className={`${inter.className} bg-slate-950 text-slate-100 antialiased selection:bg-[#00ff66] selection:text-black`}>
         {children}
       </body>
     </html>

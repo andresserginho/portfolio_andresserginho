@@ -1,17 +1,24 @@
+// src/app/page.tsx
 'use client';
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { USER_PROFILE, METAVERSE_PROJECTS, MetaverseProject } from "@/data/portfolioData";
+import { 
+  USER_PROFILE, 
+  EDUCATION_DATA, 
+  CERTIFICATIONS_DATA, 
+  MetaverseProject 
+} from "@/data/portfolioData";
 
 const MetaverseScene = dynamic(() => import("@/components/3d/MetaverseScene"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[70vh] md:h-[80vh] flex flex-col items-center justify-center bg-[#01030d] rounded-3xl border border-cyan-500/30 shadow-2xl">
+    <div className="w-full h-[75vh] md:h-[85vh] flex flex-col items-center justify-center bg-[#01030d] rounded-3xl border border-cyan-500/30 shadow-2xl">
       <div className="w-16 h-16 border-4 border-[#00ff66] border-t-transparent rounded-full animate-spin mb-4" />
       <p className="text-[#00ff66] font-mono text-sm tracking-widest animate-pulse">
-        SINCRO-GALAXIA 3D INICIANDO...
+        INICIALIZANDO ENTORNO 3D NEXT-GEN...
       </p>
     </div>
   ),
@@ -19,11 +26,10 @@ const MetaverseScene = dynamic(() => import("@/components/3d/MetaverseScene"), {
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<MetaverseProject | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [educationTab, setEducationTab] = useState<"education" | "certifications">("education");
   const [time, setTime] = useState<string>("");
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
-  // Reloj en tiempo real
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
@@ -41,7 +47,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Audio sintetizado cibernético
   const playSound = (freq = 520, type: OscillatorType = "sine") => {
     if (!soundEnabled) return;
     try {
@@ -57,31 +62,33 @@ export default function Home() {
       osc.start();
       osc.stop(ctx.currentTime + 0.25);
     } catch {
-      // Ignorar restricciones de audio del navegador
+      // Ignorar restricciones de audio
     }
   };
 
-  const filteredSkills =
-    selectedCategory === "all"
-      ? USER_PROFILE.skills
-      : USER_PROFILE.skills.filter((s) => s.category === selectedCategory);
-
   return (
     <main className="min-h-screen bg-[#01030d] text-slate-100 selection:bg-[#00ff66] selection:text-black overflow-x-hidden font-sans">
-      {/* Fondo Galáctico con Nebulosas */}
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(0,255,102,0.12),rgba(0,240,255,0.05),transparent_70%)]" />
 
-      {/* BARRA SUPERIOR HUD HOLOGRÁFICA */}
+      {/* BARRA SUPERIOR HUD */}
       <nav className="sticky top-0 z-40 bg-[#01030d]/85 backdrop-blur-2xl border-b border-[#00ff66]/20 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-xs font-mono">
           <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-[#00ff66] animate-ping" />
-            <span className="text-[#00ff66] font-bold tracking-widest">{"[ QUANTUM_CORE: ONLINE ]"}</span>
+            <Image 
+              src="/logo.png" 
+              alt="Logo Andrés Serginho" 
+              width={36}
+              height={36}
+              priority
+              loading="eager"
+              className="w-9 h-9 object-contain drop-shadow-[0_0_12px_rgba(0,255,102,0.9)]"
+            />
+            <span className="text-[#00ff66] font-bold tracking-widest">{"[ ANDRESSERGINHO // ONLINE ]"}</span>
           </div>
 
           <div className="hidden md:flex items-center gap-6 text-slate-400">
             <span>COL_TIME: <strong className="text-[#00ff66]">{time || "12:00:00"}</strong></span>
-            <span>RENDER: <strong className="text-cyan-400">WEBGL 3D</strong></span>
+            <span>RENDER: <strong className="text-cyan-400">WEBGL 3D INTERACTIVE</strong></span>
             <a
               href={USER_PROFILE.github}
               target="_blank"
@@ -107,7 +114,7 @@ export default function Home() {
 
       <div className="relative max-w-7xl mx-auto px-4 py-14 space-y-24">
 
-        {/* HEADER / PERFIL CINEMATOGRÁFICO */}
+        {/* HEADER / PERFIL */}
         <motion.header
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,19 +155,10 @@ export default function Home() {
             >
               💻 GitHub: andresserginho ↗
             </a>
-            <a
-              href={USER_PROFILE.instagram}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => playSound(600)}
-              className="bg-slate-900/90 border border-slate-800 px-4 py-2.5 rounded-xl hover:border-[#00ff66] transition-colors"
-            >
-              📸 Instagram
-            </a>
           </div>
         </motion.header>
 
-        {/* SECCIÓN 3D: GALAXIA DEL METAVERSO */}
+        {/* SECCIÓN 3D: CARRUSEL EN ÓRBITA */}
         <motion.section
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -170,14 +168,15 @@ export default function Home() {
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
             <h2 className="text-2xl md:text-4xl font-black flex items-center gap-3 text-white">
-              <span className="text-[#00ff66] font-mono">&gt;</span> Galaxia 3D Interactiva de Proyectos
+              <span className="text-[#00ff66] font-mono">&gt;</span> Proyectos en Órbita 3D
             </h2>
             <span className="text-xs font-mono text-cyan-300 border border-cyan-900 bg-cyan-950/50 px-4 py-1.5 rounded-full">
-              Arrastra para explorar el espacio 3D • Zoom activo
+              Arrastra con el mouse para rotar el carrusel • Haz clic en una tarjeta para ver detalles
             </span>
           </div>
 
           <MetaverseScene
+            isModalOpen={!!selectedProject}
             onSelectProject={(proj: MetaverseProject) => {
               playSound(800, "square");
               setSelectedProject(proj);
@@ -185,127 +184,89 @@ export default function Home() {
           />
         </motion.section>
 
-        {/* PROYECTOS DESTACADOS EN TARJETAS NEÓN */}
+        {/* SECCIÓN FORMACIÓN ACADÉMICA & CERTIFICACIONES */}
         <section className="space-y-8">
-          <h2 className="text-2xl md:text-4xl font-black flex items-center gap-3 text-white">
-            <span className="text-[#00ff66] font-mono">&gt;</span> Estaciones y Proyectos Destacados
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {METAVERSE_PROJECTS.map((project, idx) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8, scale: 1.01 }}
-                className="group relative bg-slate-900/70 border border-slate-800 hover:border-[#00ff66]/70 rounded-3xl p-8 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,255,102,0.25)] flex flex-col justify-between backdrop-blur-xl"
-              >
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-2xl font-bold text-white group-hover:text-[#00ff66] transition-colors">
-                      {project.title}
-                    </h3>
-                    <span className="text-xs font-mono bg-[#00ff66]/10 text-[#00ff66] border border-[#00ff66]/30 px-3.5 py-1.5 rounded-xl font-bold">
-                      {project.badge}
-                    </span>
-                  </div>
-
-                  <p className="text-slate-300 text-base leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.techs.map((t) => (
-                      <span key={t} className="text-xs font-mono bg-slate-950/90 border border-slate-800 text-cyan-300 px-3 py-1 rounded-lg">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-slate-800/80 flex items-center justify-between">
-                  <span className="text-xs font-mono text-slate-400">{project.category}</span>
-
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => playSound(520)}
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-black bg-[#00ff66] hover:bg-[#00f0ff] px-5 py-2.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,102,0.3)]"
-                  >
-                    VISITAR SITIO ↗
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* HABILIDADES & DOMINIO TECNOLÓGICO */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 md:p-12 space-y-8 backdrop-blur-xl"
-        >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h2 className="text-2xl md:text-4xl font-black flex items-center gap-3 text-white">
-              <span className="text-[#00ff66] font-mono">&gt;</span> Habilidades & Dominio Técnico
-            </h2>
+            <div>
+              <div className="inline-block bg-cyan-950/60 border border-cyan-800 text-cyan-400 text-[10px] font-mono px-3 py-1 rounded-md mb-2">
+                APRENDIZAJE CONTINUO
+              </div>
+              <h2 className="text-2xl md:text-4xl font-black text-white">Formación Académica</h2>
+              <p className="text-slate-400 text-sm mt-1">Mi trayectoria de crecimiento profesional y técnico en desarrollo de software</p>
+            </div>
 
-            {/* FILTROS INTERACTIVOS */}
-            <div className="flex flex-wrap gap-2 font-mono text-xs">
-              {[
-                { id: "all", label: "TODOS" },
-                { id: "frontend", label: "FRONTEND" },
-                { id: "3d", label: "3D / WEBGL" },
-                { id: "backend", label: "BACKEND" },
-                { id: "database", label: "BASES DE DATOS" },
-              ].map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => {
-                    playSound(400);
-                    setSelectedCategory(cat.id);
-                  }}
-                  className={`px-4 py-2 rounded-xl border transition-all ${
-                    selectedCategory === cat.id
-                      ? "bg-[#00ff66] text-black border-[#00ff66] font-bold shadow-[0_0_15px_rgba(0,255,102,0.4)]"
-                      : "bg-slate-950/80 border-slate-800 text-slate-400 hover:border-[#00ff66]/50"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
+            <div className="flex bg-slate-950 border border-slate-800 p-1 rounded-xl font-mono text-xs">
+              <button
+                onClick={() => {
+                  playSound(450);
+                  setEducationTab("education");
+                }}
+                className={`px-5 py-2 rounded-lg transition-all ${
+                  educationTab === "education"
+                    ? "bg-[#00ff66] text-black font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                🎓 Educación
+              </button>
+              <button
+                onClick={() => {
+                  playSound(450);
+                  setEducationTab("certifications");
+                }}
+                className={`px-5 py-2 rounded-lg transition-all ${
+                  educationTab === "certifications"
+                    ? "bg-[#00ff66] text-black font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                📜 Certificaciones ({CERTIFICATIONS_DATA.length})
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredSkills.map((skill) => (
-              <div key={skill.name} className="space-y-2.5">
-                <div className="flex justify-between text-xs font-mono">
-                  <span className="text-white font-bold text-sm">{skill.name}</span>
-                  <span className="text-[#00ff66]">{skill.level}%</span>
-                </div>
-                <div className="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-800">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${skill.level}%` }}
-                    transition={{ duration: 0.9 }}
-                    className="h-full bg-gradient-to-r from-[#00ff66] to-[#00f0ff] rounded-full shadow-[0_0_15px_rgba(0,255,102,0.6)]"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
+          {educationTab === "education" ? (
+            <div className="grid grid-cols-1 gap-6">
+              {EDUCATION_DATA.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-slate-900/70 border border-slate-800 rounded-2xl p-8 space-y-3 backdrop-blur-xl hover:border-[#00ff66]/50 transition-colors"
+                >
+                  <div className="flex flex-col md:flex-row justify-between text-xs font-mono text-slate-400">
+                    <span className="text-[#00ff66] font-bold">{item.period}</span>
+                    <span>{item.location}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{item.title}</h3>
+                  <h4 className="text-[#00f0ff] font-mono font-bold text-sm">{item.institution}</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {CERTIFICATIONS_DATA.map((cert) => (
+                <motion.div
+                  key={cert.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3 backdrop-blur-xl hover:border-[#00ff66] transition-all"
+                >
+                  <div className="flex justify-between items-center text-xs font-mono">
+                    <span className="text-[#00ff66] font-bold">{cert.issuer}</span>
+                    <span className="text-slate-400">{cert.date}</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white">{cert.title}</h3>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </section>
 
       </div>
 
-      {/* MODAL HOLOGRÁFICO DE PROYECTO */}
+      {/* MODAL HOLOGRÁFICO CON ENLACES DIRECTOS OFICIALES */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -321,7 +282,7 @@ export default function Home() {
               className="bg-slate-900 border border-[#00ff66]/60 rounded-3xl p-8 max-w-lg w-full space-y-6 shadow-[0_0_70px_rgba(0,255,102,0.35)] relative"
             >
               <div className="flex justify-between items-center border-b border-slate-800 pb-4">
-                <span className="text-xs font-mono text-[#00ff66]">{"// NODO GALÁCTICO SELECCIONADO"}</span>
+                <span className="text-xs font-mono text-[#00ff66]">{"// PROYECTO SELECCIONADO"}</span>
                 <button
                   onClick={() => {
                     playSound(300);
